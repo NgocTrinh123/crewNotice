@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "215769320309",
+    "firebase_url": "https://crewnotice-147507.firebaseio.com",
+    "project_id": "crewnotice-147507",
+    "storage_bucket": "crewnotice-147507.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215769320309:android:0bf426f774980572",
+        "android_client_info": {
+          "package_name": "com.crewcloud.apps.crewnotice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215769320309-u0tvsh2e0im88f6o07jnemeilj92962s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMfSlplQEf2cQZbqbHjaMsa0dzOaim98E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
