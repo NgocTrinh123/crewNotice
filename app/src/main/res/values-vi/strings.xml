@@ -92,12 +92,15 @@
     <string name="setting_notification_time_error">End time must be bigger than start time.</string>
 
     <string name="notification_message">새로운 공지사항이 도착했습니다.</string>
-
+    <string name="navigation_drawer_open">Mở Navication</string>
+    <string name="navigation_drawer_close">Đóng Navication</string>
     <!---Profile-->
     <string name="personal_id">ID người dùng</string>
     <string name="email">Mail</string>
     <string name="company_name">Tên tổ chức</string>
     <string name="phone">Số điện thoại</string>
-    <string name="are_you_sure_loguot">Bạn có muốn thoát khỏi phần mềm?</string>>
+    <string name="are_you_sure_loguot">Bạn có muốn thoát khỏi phần mềm?</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="check_all">Kiểm Tra Toàn Bộ</string>
     
 </resources>

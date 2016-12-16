@@ -28,11 +28,11 @@ import android.widget.TextView;
 
 import com.crewcloud.apps.crewnotice.CrewCloudApplication;
 import com.crewcloud.apps.crewnotice.R;
-import com.crewcloud.apps.crewnotice.activity.MainActivity;
 import com.crewcloud.apps.crewnotice.dtos.ErrorDto;
 import com.crewcloud.apps.crewnotice.interfaces.BaseHTTPCallBack;
 import com.crewcloud.apps.crewnotice.interfaces.OnAutoLoginCallBack;
 import com.crewcloud.apps.crewnotice.interfaces.OnHasAppCallBack;
+import com.crewcloud.apps.crewnotice.ui.activity.MainActivityV2;
 import com.crewcloud.apps.crewnotice.util.HttpRequest;
 import com.crewcloud.apps.crewnotice.util.PreferenceUtilities;
 import com.crewcloud.apps.crewnotice.util.SoftKeyboardDetectorView;
@@ -522,7 +522,7 @@ public class LoginV2Activity extends BaseActivity implements BaseHTTPCallBack, O
         HttpRequest.getInstance().insertAndroidDevice(new BaseHTTPCallBack() {
             @Override
             public void onHTTPSuccess() {
-                callActivity(MainActivity.class);
+                callActivity(MainActivityV2.class);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
             }

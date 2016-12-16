@@ -13,7 +13,7 @@ import android.text.Html;
 
 import com.crewcloud.apps.crewnotice.CrewCloudApplication;
 import com.crewcloud.apps.crewnotice.R;
-import com.crewcloud.apps.crewnotice.activity.MainActivity;
+import com.crewcloud.apps.crewnotice.ui.activity.MainActivityV2;
 import com.crewcloud.apps.crewnotice.util.PreferenceUtilities;
 import com.crewcloud.apps.crewnotice.util.TimeUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -36,7 +36,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         long[] vibrate = new long[] { 1000, 1000, 0, 0, 0 };
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivityV2.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)

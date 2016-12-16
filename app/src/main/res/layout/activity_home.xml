@@ -29,10 +29,5 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <!-- The navigation drawer -->
-    <include
-        layout="@layout/left_menu"
-        android:layout_width="@dimen/left_menu_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="start" />
+
 </android.support.v4.widget.DrawerLayout>

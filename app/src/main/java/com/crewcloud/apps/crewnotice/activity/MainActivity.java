@@ -1,11 +1,14 @@
 package com.crewcloud.apps.crewnotice.activity;
 
-import android.app.DownloadManager;
-import android.net.Uri;
-import android.os.*;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.webkit.*;
+import android.webkit.CookieManager;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,8 +22,6 @@ import com.crewcloud.apps.crewnotice.util.HttpRequest;
 import com.crewcloud.apps.crewnotice.util.PreferenceUtilities;
 
 import java.lang.ref.WeakReference;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
     private WebView wvContent = null;
@@ -125,43 +126,43 @@ public class MainActivity extends AppCompatActivity {
 
     // ----------------------------------------------------------------------------------------------
 
-    private DownloadManager FileDownloadManager = null;
-    private DownloadManager.Request FileDownloadRequest = null;
-    private Uri UriToDownload = null;
-    private long FileDownloadLatestId = -1;
-    private final Pattern CONTENT_DISPOSITION_PATTERN = Pattern.compile("attachment\\s*;\\s*filename\\s*=\\s*\"*([^\"]*)\"*");
-
-    private DownloadListener mDownloadListener = new DownloadListener() {
-        @Override
-        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
-            String fileName = parseContentDisposition(contentDisposition);
-            UriToDownload = Uri.parse(url);
-            FileDownloadRequest = new DownloadManager.Request(UriToDownload);
-            FileDownloadRequest.setTitle(fileName);
-            FileDownloadRequest.setDescription("공지사항 첨부파일 다운로드");
-            FileDownloadRequest.setDestinationInExternalPublicDir("/Download", fileName);
-            FileDownloadRequest.setVisibleInDownloadsUi(true);
-            FileDownloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            Environment.getExternalStoragePublicDirectory("/Download").mkdir();
-            FileDownloadLatestId = FileDownloadManager.enqueue(FileDownloadRequest);
-
-            Toast.makeText(MainActivity.this, "다운로드를 시작합니다.", Toast.LENGTH_SHORT).show();
-        }
-
-        private String parseContentDisposition(String contentDisposition) {
-            try {
-                Matcher m = CONTENT_DISPOSITION_PATTERN.matcher(contentDisposition);
-                if (m.find()) {
-                    return java.net.URLDecoder.decode(m.group(1), "UTF-8");
-                }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return "";
-        }
-    };
+//    private DownloadManager FileDownloadManager = null;
+//    private DownloadManager.Request FileDownloadRequest = null;
+//    private Uri UriToDownload = null;
+//    private long FileDownloadLatestId = -1;
+//    private final Pattern CONTENT_DISPOSITION_PATTERN = Pattern.compile("attachment\\s*;\\s*filename\\s*=\\s*\"*([^\"]*)\"*");
+//
+//    private DownloadListener mDownloadListener = new DownloadListener() {
+//        @Override
+//        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
+//            String fileName = parseContentDisposition(contentDisposition);
+//            UriToDownload = Uri.parse(url);
+//            FileDownloadRequest = new DownloadManager.Request(UriToDownload);
+//            FileDownloadRequest.setTitle(fileName);
+//            FileDownloadRequest.setDescription("공지사항 첨부파일 다운로드");
+//            FileDownloadRequest.setDestinationInExternalPublicDir("/Download", fileName);
+//            FileDownloadRequest.setVisibleInDownloadsUi(true);
+//            FileDownloadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//            Environment.getExternalStoragePublicDirectory("/Download").mkdir();
+//            FileDownloadLatestId = FileDownloadManager.enqueue(FileDownloadRequest);
+//
+//            Toast.makeText(MainActivity.this, "다운로드를 시작합니다.", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        private String parseContentDisposition(String contentDisposition) {
+//            try {
+//                Matcher m = CONTENT_DISPOSITION_PATTERN.matcher(contentDisposition);
+//                if (m.find()) {
+//                    return java.net.URLDecoder.decode(m.group(1), "UTF-8");
+//                }
+//            }
+//            catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//            return "";
+//        }
+//    };
 
     @Override
     protected void onResume() {

@@ -10,9 +10,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.crewcloud.apps.crewnotice.CrewCloudApplication;
 import com.crewcloud.apps.crewnotice.R;
-import com.crewcloud.apps.crewnotice.activity.MainActivity;
+import com.crewcloud.apps.crewnotice.ui.activity.MainActivityV2;
 import com.crewcloud.apps.crewnotice.util.DeviceUtilities;
 import com.crewcloud.apps.crewnotice.util.PreferenceUtilities;
 import com.crewcloud.apps.crewnotice.util.WebClient;
@@ -219,7 +220,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     preferenceUtilities.setCurrentMobileSessionId(mDataJsonNode.get("session").asText());
                     preferenceUtilities.setCurrentUserID(mLogin_userName);
 
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivityV2.class);
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {

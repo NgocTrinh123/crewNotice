@@ -98,5 +98,8 @@
     <string name="company_name">COMPANY NAME</string>
     <string name="phone">PHONE NUMBER</string>
     <string name="are_you_sure_loguot">Are you sure you want to logout?</string>>
-
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="search">Search</string>
+    <string name="check_all">Check All</string>
 </resources>

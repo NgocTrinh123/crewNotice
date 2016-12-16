@@ -23,9 +23,9 @@ import com.crewcloud.apps.crewnotice.BuildConfig;
 import com.crewcloud.apps.crewnotice.Constants;
 import com.crewcloud.apps.crewnotice.CrewCloudApplication;
 import com.crewcloud.apps.crewnotice.R;
-import com.crewcloud.apps.crewnotice.activity.MainActivity;
 import com.crewcloud.apps.crewnotice.loginv2.BaseActivity;
 import com.crewcloud.apps.crewnotice.loginv2.LoginV2Activity;
+import com.crewcloud.apps.crewnotice.ui.activity.MainActivityV2;
 import com.crewcloud.apps.crewnotice.util.DeviceUtilities;
 import com.crewcloud.apps.crewnotice.util.PreferenceUtilities;
 import com.crewcloud.apps.crewnotice.util.Util;
@@ -233,7 +233,7 @@ public class IntroActivity extends BaseActivity {
             super.onPostExecute(aVoid);
 
             if (mIsSuccess) {
-                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+                Intent intent = new Intent(IntroActivity.this, MainActivityV2.class);
                 startActivity(intent);
                 finish();
             } else {
