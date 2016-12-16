@@ -1,7 +1,5 @@
 package com.crewcloud.apps.crewnotice.ui.activity;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,13 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,9 +21,7 @@ import com.crewcloud.apps.crewnotice.base.BaseActivity;
 import com.crewcloud.apps.crewnotice.base.BaseEvent;
 import com.crewcloud.apps.crewnotice.base.BaseFragment;
 import com.crewcloud.apps.crewnotice.event.EventHandler;
-import com.crewcloud.apps.crewnotice.event.SearchEvent;
 import com.crewcloud.apps.crewnotice.listener.OnClickOptionMenu;
-import com.crewcloud.apps.crewnotice.loginv2.Statics;
 import com.crewcloud.apps.crewnotice.ui.fragment.NoticeDetailFragment;
 import com.crewcloud.apps.crewnotice.ui.fragment.NoticeFragment;
 import com.crewcloud.apps.crewnotice.util.Util;
@@ -90,40 +83,6 @@ public class MainActivityV2 extends BaseActivity {
         EventBus.getDefault().register(this);
         eventHandler = new EventHandler(this);
 
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search)
-                .getActionView();
-        if (null != searchView) {
-            searchView.setSearchableInfo(searchManager
-                    .getSearchableInfo(getComponentName()));
-            searchView.setIconifiedByDefault(false);
-        }
-
-        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                SearchEvent event = new SearchEvent(Statics.SEARCH, query);
-                EventBus.getDefault().post(event);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        };
-        if (searchView != null) {
-            searchView.setOnQueryTextListener(queryTextListener);
-        }
-
-        return super.onCreateOptionsMenu(menu);
     }
 
 

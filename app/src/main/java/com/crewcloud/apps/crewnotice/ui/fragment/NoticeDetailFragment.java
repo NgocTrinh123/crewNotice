@@ -2,8 +2,11 @@ package com.crewcloud.apps.crewnotice.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -11,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crewcloud.apps.crewnotice.R;
+import com.crewcloud.apps.crewnotice.adapter.CommentAdapter;
+import com.crewcloud.apps.crewnotice.adapter.PhotoAdapter;
 import com.crewcloud.apps.crewnotice.base.BaseFragment;
 import com.crewcloud.apps.crewnotice.dtos.Notice;
 import com.crewcloud.apps.crewnotice.factory.DataFactory;
@@ -51,6 +56,9 @@ public class NoticeDetailFragment extends BaseFragment {
 
     private String idNotice;
 
+    PhotoAdapter photoAdapter;
+    CommentAdapter commentAdapter;
+
     public static BaseFragment newInstance(Bundle bundle) {
         NoticeDetailFragment fragment = new NoticeDetailFragment();
         fragment.setArguments(bundle);
@@ -62,6 +70,8 @@ public class NoticeDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         setTitle("Detail");
         setActionFloat(true);
+        setHasOptionsMenu(true);
+        photoAdapter = new PhotoAdapter(getBaseActivity());
         if (getArguments() != null) {
             idNotice = getArguments().getString(Statics.ID_NOTICE);
         }
@@ -75,11 +85,18 @@ public class NoticeDetailFragment extends BaseFragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_detail_notice, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        lvAttach.setLayoutManager(linearLayoutManager);
+        lvAttach.setAdapter(photoAdapter);
         initData(DataFactory.getNotice());
     }
 
@@ -87,6 +104,8 @@ public class NoticeDetailFragment extends BaseFragment {
         tvTitle.setText(notice.getContent());
         tvAuthor.setText(notice.getAuthor());
         tvTime.setText(notice.getTime());
+
+        photoAdapter.addAll(DataFactory.getPhoto());
     }
 
     @Override

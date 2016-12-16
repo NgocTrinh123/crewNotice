@@ -1,5 +1,6 @@
 package com.crewcloud.apps.crewnotice.factory;
 
+import com.crewcloud.apps.crewnotice.data.Photo;
 import com.crewcloud.apps.crewnotice.dtos.Notice;
 import com.crewcloud.apps.crewnotice.event.MenuItem;
 
@@ -60,5 +61,13 @@ public class DataFactory {
         notice.setNumber_comment("3");
         notice.setTime("today, 2:43 pm");
         return notice;
+    }
+
+    public static List<Photo> getPhoto() {
+        List<Photo> lstPhoto = new ArrayList<>();
+        lstPhoto.add(new Photo("1", "http://photos.thegioisao.net/anh-dep/chan-dung/ngoc-trinh-08-6332-1434679400.jpg", "ngoctrinh"));
+        lstPhoto.add(new Photo("2", "http://www.xaluan.com/images/news/Image/2015/08/27/nu-hoang-noi-y-ngoc-trinh-tu-khai-guong-mat-dao-keo-hinh-4.jpg", "ngoctrinh2"));
+        lstPhoto.add(new Photo("3", "http://kenh14cdn.com/thumb_w/600/2016/5-1454435948579.jpg", "ao dai"));
+        return lstPhoto;
     }
 }

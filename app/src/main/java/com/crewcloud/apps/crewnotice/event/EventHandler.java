@@ -33,7 +33,7 @@ public class EventHandler {
                 break;
             case BaseEvent.EventType.NOTICE_DETAIL:
                 Bundle bundle = event.getMenuEvent().getBundle();
-                activity.changeFragmentBundle(BaseFragment.FragmentEnums.NOTICE_DETAIL, false, bundle);
+                activity.changeFragmentBundle(BaseFragment.FragmentEnums.NOTICE_DETAIL, true, bundle);
                 break;
         }
     }
