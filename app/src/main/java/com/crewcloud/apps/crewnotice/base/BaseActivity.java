@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.crewcloud.apps.crewnotice.R;
 import com.crewcloud.apps.crewnotice.listener.OnClickOptionMenu;
 
 /**
@@ -68,6 +70,7 @@ public class BaseActivity extends AppCompatActivity {
         if (backPressCount > 1) {
             super.onBackPressed();
         } else {
+            Toast.makeText(getBaseContext(),getString(R.string.mainActivity_message_exit),Toast.LENGTH_LONG).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

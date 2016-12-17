@@ -1,6 +1,8 @@
 package com.crewcloud.apps.crewnotice.factory;
 
+import com.crewcloud.apps.crewnotice.data.Comment;
 import com.crewcloud.apps.crewnotice.data.Photo;
+import com.crewcloud.apps.crewnotice.data.Reply;
 import com.crewcloud.apps.crewnotice.dtos.Notice;
 import com.crewcloud.apps.crewnotice.event.MenuItem;
 
@@ -69,5 +71,17 @@ public class DataFactory {
         lstPhoto.add(new Photo("2", "http://www.xaluan.com/images/news/Image/2015/08/27/nu-hoang-noi-y-ngoc-trinh-tu-khai-guong-mat-dao-keo-hinh-4.jpg", "ngoctrinh2"));
         lstPhoto.add(new Photo("3", "http://kenh14cdn.com/thumb_w/600/2016/5-1454435948579.jpg", "ao dai"));
         return lstPhoto;
+    }
+
+    public static List<Comment> getComments() {
+        List<Comment> lstComment = new ArrayList<>();
+        List<Reply> lstReply = new ArrayList<>();
+        lstReply.add(new Reply("1", "that ak", "Ngoc Trinh", "http://www.xaluan.com/images/news/Image/2015/08/27/nu-hoang-noi-y-ngoc-trinh-tu-khai-guong-mat-dao-keo-hinh-4.jpg"));
+        lstReply.add(new Reply("2", "eo tin", "Ronaldo", "http://photos.thegioisao.net/anh-dep/chan-dung/ngoc-trinh-08-6332-1434679400.jpg"));
+        lstComment.add(new Comment("1", "Tran Dao Manh", "03:00 am", "http://kenh14cdn.com/thumb_w/600/2016/5-1454435948579.jpg", "good Detail", lstReply));
+        lstComment.add(new Comment("2", "Abc", "05:00 am", "http://kenh14cdn.com/thumb_w/600/2016/5-1454435948579.jpg", "good Detail"));
+        lstComment.add(new Comment("3", "xyz", "01:00 pm", "http://kenh14cdn.com/thumb_w/600/2016/5-1454435948579.jpg", "good Detail"));
+
+        return lstComment;
     }
 }

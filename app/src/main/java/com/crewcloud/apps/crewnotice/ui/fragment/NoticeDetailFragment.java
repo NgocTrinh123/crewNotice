@@ -20,6 +20,7 @@ import com.crewcloud.apps.crewnotice.base.BaseFragment;
 import com.crewcloud.apps.crewnotice.dtos.Notice;
 import com.crewcloud.apps.crewnotice.factory.DataFactory;
 import com.crewcloud.apps.crewnotice.loginv2.Statics;
+import com.crewcloud.apps.crewnotice.view.MyRecyclerView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,7 +50,7 @@ public class NoticeDetailFragment extends BaseFragment {
     EditText etComment;
 
     @Bind(R.id.fragment_notice_detail_lv_comment)
-    RecyclerView lvComment;
+    MyRecyclerView lvComment;
 
     @Bind(R.id.fragment_notice_detail_iv_send)
     ImageView ivSend;
@@ -72,6 +73,7 @@ public class NoticeDetailFragment extends BaseFragment {
         setActionFloat(true);
         setHasOptionsMenu(true);
         photoAdapter = new PhotoAdapter(getBaseActivity());
+        commentAdapter = new CommentAdapter(getBaseActivity());
         if (getArguments() != null) {
             idNotice = getArguments().getString(Statics.ID_NOTICE);
         }
@@ -96,6 +98,11 @@ public class NoticeDetailFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         lvAttach.setLayoutManager(linearLayoutManager);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        lvComment.setLayoutManager(llm);
+
+        lvComment.setAdapter(commentAdapter);
         lvAttach.setAdapter(photoAdapter);
         initData(DataFactory.getNotice());
     }
@@ -106,6 +113,8 @@ public class NoticeDetailFragment extends BaseFragment {
         tvTime.setText(notice.getTime());
 
         photoAdapter.addAll(DataFactory.getPhoto());
+
+        commentAdapter.addAll(DataFactory.getComments());
     }
 
     @Override

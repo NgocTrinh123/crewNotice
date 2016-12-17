@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="160dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/item_comment_civ_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/margin_normal"
+        android:src="@mipmap/photo_placeholder" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/margin_big">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/item_comment_civ_avatar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@mipmap/photo_placeholder" />
+        android:layout_toRightOf="@+id/item_comment_civ_avatar"
+        android:padding="@dimen/margin_normal">
 
         <TextView
             android:id="@+id/item_comment_tv_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_big"
-            android:layout_toRightOf="@+id/item_comment_civ_avatar"
             android:text="Nguyen Ngo Giap" />
 
         <TextView
@@ -37,24 +35,81 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/login_server" />
+            android:src="@drawable/login_server"
+            android:visibility="gone" />
 
         <LinearLayout
+            android:id="@+id/item_comment_ln_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_comment_tv_author"
-            android:layout_marginLeft="@dimen/margin_big"
-            android:layout_marginTop="@dimen/margin_normal"
+            android:orientation="vertical"
             android:layout_toLeftOf="@+id/item_comment_iv_info"
-            android:layout_toRightOf="@+id/item_comment_civ_avatar"
-            android:background="@color/app_base_color">
+            >
 
-            <TextView
+            <ImageView
+                android:id="@+id/arrow_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="commentajsdiasdja\ndasldkadklasdkl" />
+                android:layout_marginLeft="@dimen/margin_small"
+                android:src="@drawable/quickaction_arrow_up" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_text_comment"
+                android:text="commentajsdiasdja\ndasldkadklasdkl"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/item_comment_tv_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_comment_ln_comment"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="Reply" />
+
+        <TextView
+            android:id="@+id/item_comment_tv_count_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_comment_ln_comment"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_toRightOf="@+id/item_comment_tv_reply"
+            android:text="View more 5 comment"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_comment_ln_comment"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_toRightOf="@+id/item_comment_tv_reply"
+            android:textColor="@color/colorAccent" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/item_comment_tv_reply_comment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/item_comment_tv_count_comment"-->
+        <!--android:layout_marginLeft="@dimen/margin_small"-->
+        <!--android:layout_marginTop="@dimen/margin_normal"-->
+        <!--android:textColor="@android:color/black" />-->
+
+        <com.crewcloud.apps.crewnotice.view.MyRecyclerView
+            android:id="@+id/item_comment_list_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_comment_tv_reply" />
     </RelativeLayout>
 
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray" />
+
+</RelativeLayout>

@@ -10,6 +10,7 @@
     <color name="disable_text_color">#8e8e8e</color>
     <color name="secondary_text_color">#76000000</color>
     <color name="app_base_color">#52afe7</color>
+    <color name="bg_text_comment">#e7f3ff</color>
     <color name="login_button_login_background">#37a3e4</color>
     <color name="login_button_signup_background">#277bcd</color>
     <color name="drawer_devide_color">#909796</color>
