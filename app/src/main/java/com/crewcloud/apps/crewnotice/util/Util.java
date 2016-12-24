@@ -276,7 +276,7 @@ public class Util {
     }
 
     public static String setDateInfo(long milis, String format) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat(format,Locale.getDefault());
+        SimpleDateFormat timeFormat = new SimpleDateFormat(format, Locale.getDefault());
 
         if (milis >= 0) {
             //cal.setTimeZone();
@@ -389,6 +389,7 @@ public class Util {
             return server_site;
         }
     }
+
     public static String getFullHour(String tv) {
         String hour = "", minute = "";
         int h = getHour(tv);
@@ -414,7 +415,7 @@ public class Util {
         return Integer.parseInt(tv.split(" ")[1].split(":")[1]);
     }
 
-    public static String getTemsServerSite(String server_site){
+    public static String getTemsServerSite(String server_site) {
         String temp_server_site = server_site;
         if (temp_server_site.contains(".bizsw.co.kr")) {
             temp_server_site = "http://www.bizsw.co.kr:8080";

@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_normal"
             android:layout_toRightOf="@+id/item_list_notice_iv_image"
+            android:ellipsize="end"
             android:maxLines="2"
             android:text="Lorem ipsum dolor" />
 

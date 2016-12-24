@@ -33,6 +33,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LAM THI HONG DIEM"
@@ -41,6 +42,7 @@
                 android:textSize="@dimen/setting_tv_size_small" />
 
             <TextView
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="dongdiem@dazone.co.kr"

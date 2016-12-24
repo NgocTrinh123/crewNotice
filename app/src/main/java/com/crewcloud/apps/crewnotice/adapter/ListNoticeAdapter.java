@@ -1,6 +1,9 @@
 package com.crewcloud.apps.crewnotice.adapter;
 
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +77,13 @@ public class ListNoticeAdapter extends BaseAdapter<Notice, ListNoticeAdapter.Vie
 
         void bind(int position) {
             Notice notice = getItem(position);
-            tvContent.setText(notice.getContent());
+            SpannableStringBuilder builder = new SpannableStringBuilder();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder.append(notice.getContent()).append("  ")
+                        .append(" ", new ImageSpan(getContext(), R.drawable.ic_comment), 0)
+                        .append("  3");
+            }
+            tvContent.setText(builder);
             tvTime.setText(notice.getTime());
             tvAuthor.setText(notice.getAuthor());
         }

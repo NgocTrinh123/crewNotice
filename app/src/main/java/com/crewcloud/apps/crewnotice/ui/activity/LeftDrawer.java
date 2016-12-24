@@ -9,6 +9,7 @@ import com.crewcloud.apps.crewnotice.R;
 import com.crewcloud.apps.crewnotice.adapter.LeftMenuAdapter;
 import com.crewcloud.apps.crewnotice.base.BaseEvent;
 import com.crewcloud.apps.crewnotice.factory.DataFactory;
+import com.crewcloud.apps.crewnotice.module.leftmenu.LeftMenuPresenterImp;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,6 +24,8 @@ public class LeftDrawer {
     @Bind(R.id.lv_menu)
     RecyclerView lvMenu;
 
+    LeftMenuPresenterImp leftMenuPresenterImp;
+
     @OnClick(R.id.setting_drawer)
     void onClickSetting() {
         BaseEvent event = new BaseEvent(BaseEvent.EventType.SETTING);
@@ -36,16 +39,9 @@ public class LeftDrawer {
     public LeftDrawer(MainActivityV2 activity, DrawerLayout drawerLayout, View menu) {
         ButterKnife.bind(this, menu);
         this.drawerLayout = drawerLayout;
-        leftMenuAdapter = new LeftMenuAdapter(activity);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-        lvMenu.setLayoutManager(linearLayoutManager);
-        lvMenu.setAdapter(leftMenuAdapter);
 
-        leftMenuAdapter.addAll(DataFactory.getMenuItem());
 
 
     }
-
-
 }
 

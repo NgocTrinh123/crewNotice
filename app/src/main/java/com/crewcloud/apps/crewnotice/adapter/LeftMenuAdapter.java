@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crewcloud.apps.crewnotice.R;
 import com.crewcloud.apps.crewnotice.base.BaseActivity;
 import com.crewcloud.apps.crewnotice.base.BaseAdapter;
-import com.crewcloud.apps.crewnotice.event.MenuItem;
+import com.crewcloud.apps.crewnotice.data.LeftMenu;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,7 +18,7 @@ import butterknife.ButterKnife;
 /**
  * Created by tunglam on 12/15/16.
  */
-public class LeftMenuAdapter extends BaseAdapter<MenuItem, LeftMenuAdapter.ViewHolder> {
+public class LeftMenuAdapter extends BaseAdapter<LeftMenu, LeftMenuAdapter.ViewHolder> {
 
 
     public LeftMenuAdapter(BaseActivity mActivity) {
@@ -50,14 +49,24 @@ public class LeftMenuAdapter extends BaseAdapter<MenuItem, LeftMenuAdapter.ViewH
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getContext(), "to be continue", Toast.LENGTH_SHORT).show();
+                    leftMenuListener.onClickItem(getAdapterPosition());
                 }
             });
         }
 
         void bind(int position) {
-            MenuItem menuItem = getItem(position);
+            LeftMenu menuItem = getItem(position);
             tvMenu.setText(menuItem.getName());
         }
+    }
+
+    public interface ItemLeftMenuListener {
+        void onClickItem(int position);
+    }
+
+    private ItemLeftMenuListener leftMenuListener;
+
+    public void setLeftMenuListener(ItemLeftMenuListener leftMenuListener) {
+        this.leftMenuListener = leftMenuListener;
     }
 }

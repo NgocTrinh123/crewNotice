@@ -1,7 +1,9 @@
 package com.crewcloud.apps.crewnotice.util;
 
 public class Urls {
+    public static final String URL = "http://www.crewcloud.net";
     public static final String URL_AUTO_LOGIN = "/UI/WebService/WebServiceCenter.asmx/AutoLogin";
+    public static final String URL_GET_MENU = "/UI/MobileNotice/NoticeService.asmx/GetDivisions";
     public static final String URL_GET_LOGIN = "/UI/WebService/WebServiceCenter.asmx/Login_v2";
     public static final String URL_GET_INSERT_TIME_CARDS = "/UI/MobileWorkingTime/WorkingTime_Service.asmx/InsertTimeCards";
     public static final String URL_GET_MY_LIST = "/UI/MobileWorkingTime/WorkingTime_Service.asmx/GetMyList_v2";

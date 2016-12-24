@@ -34,10 +34,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "ENABLE_DEBUG", "false"
+            buildConfigField("String", "BASE_URL", '"http://www.crewcloud.net"')
+
         }
         debug {
             signingConfig signingConfigs.one
             buildConfigField "boolean", "ENABLE_DEBUG", "true"
+            buildConfigField("String", "BASE_URL", '"http://www.crewcloud.net"')
+
         }
     }
 }
@@ -52,13 +56,26 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.6.1'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
-    compile 'com.google.code.gson:gson:2.7'
+//    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    //===
+    //react
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+
+    //networking
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

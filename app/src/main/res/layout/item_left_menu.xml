@@ -8,14 +8,15 @@
         android:id="@+id/left_menu_rl_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_big">
+        android:padding="@dimen/margin_normal">
 
         <ImageView
             android:id="@+id/menu_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/margin_big"
-            android:src="@mipmap/photo_placeholder" />
+            android:src="@drawable/ic_list_black_24dp"
+            android:tint="@color/gray_compose_mail" />
 
         <TextView
             android:id="@+id/tv_menu"

@@ -121,10 +121,18 @@
 
     </ScrollView>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/fragment_notice_detail_ln_bottom"
+        android:background="@color/gray" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/fragment_notice_detail_ln_bottom"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_normal"
         android:orientation="horizontal">
 
         <ImageView
@@ -136,9 +144,10 @@
         <EditText
             android:id="@+id/fragment_notice_detail_et_comment"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_normal"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:hint="Enter Comment"
             android:textColorHint="@color/text_gray"
             android:textSize="@dimen/text_15_30" />

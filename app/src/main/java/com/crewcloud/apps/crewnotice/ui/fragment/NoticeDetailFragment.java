@@ -17,9 +17,11 @@ import com.crewcloud.apps.crewnotice.R;
 import com.crewcloud.apps.crewnotice.adapter.CommentAdapter;
 import com.crewcloud.apps.crewnotice.adapter.PhotoAdapter;
 import com.crewcloud.apps.crewnotice.base.BaseFragment;
-import com.crewcloud.apps.crewnotice.dtos.Notice;
+import com.crewcloud.apps.crewnotice.data.NoticeDetail;
 import com.crewcloud.apps.crewnotice.factory.DataFactory;
 import com.crewcloud.apps.crewnotice.loginv2.Statics;
+import com.crewcloud.apps.crewnotice.module.noticedetail.NoticeDetailPresenter;
+import com.crewcloud.apps.crewnotice.module.noticedetail.NoticeDetailPresenterImp;
 import com.crewcloud.apps.crewnotice.view.MyRecyclerView;
 
 import butterknife.Bind;
@@ -29,7 +31,7 @@ import butterknife.ButterKnife;
  * Created by tunglam on 12/16/16.
  */
 
-public class NoticeDetailFragment extends BaseFragment {
+public class NoticeDetailFragment extends BaseFragment implements NoticeDetailPresenter.view {
 
     @Bind(R.id.fragment_notice_detail_lv_attach)
     RecyclerView lvAttach;
@@ -55,7 +57,8 @@ public class NoticeDetailFragment extends BaseFragment {
     @Bind(R.id.fragment_notice_detail_iv_send)
     ImageView ivSend;
 
-    private String idNotice;
+    NoticeDetailPresenterImp noticeDetailPresenterImp;
+    private int idNotice;
 
     PhotoAdapter photoAdapter;
     CommentAdapter commentAdapter;
@@ -72,11 +75,15 @@ public class NoticeDetailFragment extends BaseFragment {
         setTitle("Detail");
         setActionFloat(true);
         setHasOptionsMenu(true);
+        noticeDetailPresenterImp = new NoticeDetailPresenterImp(getActivity());
+        noticeDetailPresenterImp.attachView(this);
         photoAdapter = new PhotoAdapter(getBaseActivity());
         commentAdapter = new CommentAdapter(getBaseActivity());
         if (getArguments() != null) {
-            idNotice = getArguments().getString(Statics.ID_NOTICE);
+            idNotice = getArguments().getInt(Statics.ID_NOTICE);
         }
+
+
     }
 
 
@@ -104,22 +111,45 @@ public class NoticeDetailFragment extends BaseFragment {
 
         lvComment.setAdapter(commentAdapter);
         lvAttach.setAdapter(photoAdapter);
-        initData(DataFactory.getNotice());
+
+        noticeDetailPresenterImp.getNoticeDetail(idNotice);
+
     }
 
-    private void initData(Notice notice) {
-        tvTitle.setText(notice.getContent());
-        tvAuthor.setText(notice.getAuthor());
-        tvTime.setText(notice.getTime());
+    private void initData(NoticeDetail notice) {
+        tvTitle.setText(notice.getTitle());
+        tvAuthor.setText(notice.getUserName());
+        tvTime.setText(notice.getStartDate());
 
         photoAdapter.addAll(DataFactory.getPhoto());
-
-        commentAdapter.addAll(DataFactory.getComments());
+//        for (Comment comment : DataFactory.getComments()) {
+//            if (comment.getLstReply() != null && comment.getLstReply().size() > 0) {
+//                RecyclerView.LayoutParams layout = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200);
+//                lvComment.setLayoutParams(layout);
+//            }
+//        }
+        commentAdapter.addAll(notice.getCommentList());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        noticeDetailPresenterImp.detachView();
+    }
+
+    @Override
+    public void onGetDetailSuccess(NoticeDetail noticeDetail) {
+        initData(noticeDetail);
+    }
+
+    @Override
+    public void onError(String message) {
+
     }
 }

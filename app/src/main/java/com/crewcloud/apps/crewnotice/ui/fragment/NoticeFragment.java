@@ -16,12 +16,17 @@ import com.crewcloud.apps.crewnotice.R;
 import com.crewcloud.apps.crewnotice.adapter.ListNoticeAdapter;
 import com.crewcloud.apps.crewnotice.base.BaseEvent;
 import com.crewcloud.apps.crewnotice.base.BaseFragment;
+import com.crewcloud.apps.crewnotice.data.LeftMenu;
+import com.crewcloud.apps.crewnotice.dtos.Notice;
 import com.crewcloud.apps.crewnotice.event.MenuEvent;
-import com.crewcloud.apps.crewnotice.factory.DataFactory;
 import com.crewcloud.apps.crewnotice.loginv2.Statics;
+import com.crewcloud.apps.crewnotice.module.notice.NoticePresenter;
+import com.crewcloud.apps.crewnotice.module.notice.NoticePresenterImp;
 import com.crewcloud.apps.crewnotice.view.MyRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,12 +35,15 @@ import butterknife.ButterKnife;
  * Created by tunglam on 12/15/16.
  */
 
-public class NoticeFragment extends BaseFragment {
+public class NoticeFragment extends BaseFragment implements NoticePresenter.view {
 
     @Bind(R.id.fragment_notice_list)
     MyRecyclerView rvList;
 
     ListNoticeAdapter adapter;
+    NoticePresenterImp noticePresenterImp;
+    LeftMenu leftMenu;
+    int divisionId;
 
     public static BaseFragment newInstance(Bundle bundle) {
         NoticeFragment noticeFragment = new NoticeFragment();
@@ -49,6 +57,16 @@ public class NoticeFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setTitle("Notice");
+
+        if (getArguments() != null) {
+            leftMenu = getArguments().getParcelable("OBJECT");
+            if (leftMenu != null) {
+                divisionId = leftMenu.getDivisionNo();
+            }
+        }
+
+        noticePresenterImp = new NoticePresenterImp(getActivity());
+        noticePresenterImp.attachView(this);
 
     }
 
@@ -68,7 +86,8 @@ public class NoticeFragment extends BaseFragment {
         rvList.setLayoutManager(linearLayoutManager);
 
         rvList.setAdapter(adapter);
-        adapter.addAll(DataFactory.getListNotice());
+
+        noticePresenterImp.getNotice("", divisionId);
 
 //        rvList.setMyRecyclerViewListener(new MyRecyclerView.MyRecyclerViewListener() {
 //            @Override
@@ -87,7 +106,7 @@ public class NoticeFragment extends BaseFragment {
             public void onItemClicked(int position) {
                 BaseEvent baseEvent = new BaseEvent(BaseEvent.EventType.NOTICE_DETAIL);
                 Bundle data = new Bundle();
-                data.putString(Statics.ID_NOTICE, adapter.getItem(position).getId());
+                data.putInt(Statics.ID_NOTICE, adapter.getItem(position).getId());
                 MenuEvent menuEvent = new MenuEvent();
                 menuEvent.setBundle(data);
                 baseEvent.setMenuEvent(menuEvent);
@@ -138,5 +157,16 @@ public class NoticeFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        noticePresenterImp.detachView();
+    }
+
+    @Override
+    public void onGetNoticeSuccess(List<Notice> list) {
+        adapter.addAll(list);
+    }
+
+    @Override
+    public void onError(String message) {
+
     }
 }

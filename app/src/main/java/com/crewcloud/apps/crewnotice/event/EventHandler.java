@@ -9,7 +9,6 @@ import com.crewcloud.apps.crewnotice.base.BaseEvent;
 import com.crewcloud.apps.crewnotice.base.BaseFragment;
 import com.crewcloud.apps.crewnotice.loginv2.Statics;
 import com.crewcloud.apps.crewnotice.ui.activity.MainActivityV2;
-import com.crewcloud.apps.crewnotice.ui.fragment.NoticeFragment;
 
 /**
  * Created by tunglam on 12/16/16.
@@ -43,9 +42,11 @@ public class EventHandler {
             return;
         }
         MenuItem menuItem = ((MenuEvent) event).getMenuItem();
+        Bundle data = ((MenuEvent) event).getBundle();
         switch (menuItem.getId()) {
             case Statics.MENU.NOTICE:
-                activity.changeFragment(new NoticeFragment(), false, NoticeFragment.class.getSimpleName());
+
+                activity.changeFragmentBundle(BaseFragment.FragmentEnums.LIST_NOTICE, false, data);
                 break;
         }
     }

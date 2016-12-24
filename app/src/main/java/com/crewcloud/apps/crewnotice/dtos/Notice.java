@@ -8,8 +8,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Notice {
 
-    @SerializedName("id")
-    private String id;
+    @SerializedName("noticeNo")
+    private int id;
 
     @SerializedName("content")
     private String content;
@@ -26,11 +26,11 @@ public class Notice {
     public Notice() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

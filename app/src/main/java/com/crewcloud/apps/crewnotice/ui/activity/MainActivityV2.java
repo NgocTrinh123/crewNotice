@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,12 +18,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crewcloud.apps.crewnotice.CrewCloudApplication;
 import com.crewcloud.apps.crewnotice.R;
+import com.crewcloud.apps.crewnotice.adapter.LeftMenuAdapter;
 import com.crewcloud.apps.crewnotice.base.BaseActivity;
 import com.crewcloud.apps.crewnotice.base.BaseEvent;
 import com.crewcloud.apps.crewnotice.base.BaseFragment;
+import com.crewcloud.apps.crewnotice.data.LeftMenu;
 import com.crewcloud.apps.crewnotice.event.EventHandler;
+import com.crewcloud.apps.crewnotice.event.MenuEvent;
+import com.crewcloud.apps.crewnotice.event.MenuItem;
 import com.crewcloud.apps.crewnotice.listener.OnClickOptionMenu;
+import com.crewcloud.apps.crewnotice.loginv2.Statics;
+import com.crewcloud.apps.crewnotice.module.leftmenu.LeftMenuPresenter;
+import com.crewcloud.apps.crewnotice.module.leftmenu.LeftMenuPresenterImp;
 import com.crewcloud.apps.crewnotice.ui.fragment.NoticeDetailFragment;
 import com.crewcloud.apps.crewnotice.ui.fragment.NoticeFragment;
 import com.crewcloud.apps.crewnotice.util.Util;
@@ -29,17 +39,26 @@ import com.crewcloud.apps.crewnotice.util.Util;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by tunglam on 12/15/16.
  */
 
-public class MainActivityV2 extends BaseActivity {
+public class MainActivityV2 extends BaseActivity implements LeftMenuPresenter.view {
 
     private BaseFragment currentFragment;
+    @Bind(R.id.lv_menu)
+    RecyclerView lvMenu;
+
+    LeftMenuPresenterImp leftMenuPresenterImp;
+
+    private LeftMenuAdapter leftMenuAdapter;
 
     @Bind(R.id.tv_title)
     TextView tvTitle;
@@ -65,6 +84,15 @@ public class MainActivityV2 extends BaseActivity {
     @Bind(R.id.imv_logo)
     ImageView imvActionbarLogo;
 
+    @Bind(R.id.avatar)
+    CircleImageView avatar;
+
+    @Bind(R.id.user_name)
+    TextView user_name;
+
+    @Bind(R.id.email)
+    TextView email;
+
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
@@ -78,11 +106,53 @@ public class MainActivityV2 extends BaseActivity {
         setContentView(R.layout.activity_main_v2);
         ButterKnife.bind(this);
         setupToolbar();
-        leftDrawer = new LeftDrawer(this, drawerLayout, leftMenuLayout);
         changeFragment(new NoticeFragment(), false, NoticeFragment.class.getSimpleName());
         EventBus.getDefault().register(this);
         eventHandler = new EventHandler(this);
 
+        leftMenuAdapter = new LeftMenuAdapter(this);
+        leftMenuPresenterImp = new LeftMenuPresenterImp(this);
+        leftMenuPresenterImp.attachView(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        lvMenu.setLayoutManager(linearLayoutManager);
+        lvMenu.setAdapter(leftMenuAdapter);
+
+        leftMenuAdapter.setLeftMenuListener(new LeftMenuAdapter.ItemLeftMenuListener() {
+            @Override
+            public void onClickItem(int position) {
+                drawerLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (drawerLayout != null) {
+                            drawerLayout.closeDrawer(Gravity.LEFT);
+                        }
+                    }
+                });
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("OBJECT", leftMenuAdapter.getItem(position));
+
+                MenuEvent menuEvent = new MenuEvent(BaseEvent.EventType.MENU);
+                MenuItem item = new MenuItem(Statics.MENU.NOTICE);
+                menuEvent.setMenuItem(item);
+                menuEvent.setBundle(bundle);
+                EventBus.getDefault().post(menuEvent);
+            }
+        });
+
+        initView();
+
+        leftMenuPresenterImp.getLeftMenu();
+
+    }
+
+    private void initView() {
+        String ava = CrewCloudApplication.getInstance().getPreferenceUtilities().getUserAvatar();
+        String name = CrewCloudApplication.getInstance().getPreferenceUtilities().getFullName();
+        String email = CrewCloudApplication.getInstance().getPreferenceUtilities().getEmail();
+        Util.showImage(ava, avatar);
+        this.user_name.setText(name);
+        this.email.setText(email);
     }
 
 
@@ -167,10 +237,11 @@ public class MainActivityV2 extends BaseActivity {
         } else if (currentFragment != null && currentFragment.onBackPressed()) {
             Log.d("BACK", "Fragment back pressed");
         } else {
-            if (getSupportFragmentManager().getBackStackEntryCount() == 0 && !(currentFragment instanceof NoticeFragment)) {
-                changeFragment(new NoticeFragment(), false, NoticeFragment.class.getSimpleName());
-                return;
-            } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+//            if (getSupportFragmentManager().getBackStackEntryCount() == 0 && !(currentFragment instanceof NoticeFragment)) {
+//                changeFragment(new NoticeFragment(), false, NoticeFragment.class.getSimpleName());
+//                return;
+//            } else
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 currentFragment = getActiveFragment();
             }
             super.onBackPressed();
@@ -310,10 +381,35 @@ public class MainActivityV2 extends BaseActivity {
 
     @Override
     public void setActionFloat(boolean isShow) {
-        if (!isShow){
+        if (!isShow) {
             fab.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             fab.setVisibility(View.GONE);
         }
     }
+
+    @Override
+    public void onGetMenuSuccess(List<LeftMenu> leftMenu) {
+        LeftMenu importionLeftMenu = new LeftMenu();
+        importionLeftMenu.setName("Important");
+
+        LeftMenu all = new LeftMenu();
+        all.setName("All");
+
+        leftMenu.add(0, importionLeftMenu);
+        leftMenu.add(1, all);
+        leftMenuAdapter.addAll(leftMenu);
+    }
+
+    @Override
+    public void onError(String message) {
+
+    }
+
+    @OnClick(R.id.setting_drawer)
+    void onClickSetting() {
+        BaseEvent event = new BaseEvent(BaseEvent.EventType.SETTING);
+        EventBus.getDefault().post(event);
+    }
+
 }
