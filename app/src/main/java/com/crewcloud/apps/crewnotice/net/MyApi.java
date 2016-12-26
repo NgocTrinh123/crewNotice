@@ -32,6 +32,6 @@ public interface MyApi {
     @POST("UI/MobileNotice/NoticeService.asmx/GetListOfNotices")
     Observable<BaseResponse<MenuResponse<List<Notice>>>> getListNotice(@Body BodyRequest param);
 
-    @POST("UI/MobileNotice/NoticeService.asmx/GetListOfNotices")
+    @POST("UI/MobileNotice/NoticeService.asmx/GetContentNotice")
     Observable<BaseResponse<MenuResponse<NoticeDetail>>> getDetailNotice(@Body BodyRequest param);
 }

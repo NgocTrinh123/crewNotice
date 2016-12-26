@@ -92,7 +92,7 @@ public class MyRecyclerView extends RelativeLayout {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 if (myRecyclerViewListener != null) {
-                    myRecyclerViewListener.onLoadMore(page, totalItemsCount);
+                    myRecyclerViewListener.onLoadMore(page - 1, totalItemsCount);
                 }
             }
 

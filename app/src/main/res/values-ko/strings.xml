@@ -104,5 +104,9 @@
     <string name="navigation_drawer_open">네이비케이선 열기</string>
     <string name="check_all">전체 체크</string>
     <string name="navigation_drawer_close">네이비케이선 닫기</string>
-    <string name="search">검색</string></resources>
+    <string name="search">검색</string>
+    <string name="important">Important</string>
+    <string name="all">All</string>
+    <string name="today">"오늘, "</string>
+</resources>
 

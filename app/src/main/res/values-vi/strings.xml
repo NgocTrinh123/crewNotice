@@ -102,5 +102,8 @@
     <string name="are_you_sure_loguot">Bạn có muốn thoát khỏi phần mềm?</string>
     <string name="search">Tìm kiếm</string>
     <string name="check_all">Kiểm Tra Toàn Bộ</string>
-    
+    <string name="important">Important</string>
+    <string name="all">All</string>
+    <string name="today">"Hôm nay, "</string>
+
 </resources>

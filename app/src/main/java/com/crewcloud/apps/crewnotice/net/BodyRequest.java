@@ -21,27 +21,27 @@ public class BodyRequest {
         this.sessionId = sessionId;
     }
 
-    public void setDivisionNo(int divisionNo) {
-        this.divisionNo = divisionNo;
-    }
-
-    public void setSearchText(String searchText) {
-        this.searchText = searchText;
-    }
-
-    public void setImportantOnly(boolean importantOnly) {
-        this.importantOnly = importantOnly;
-    }
-
-    public void setCountOfArticles(String countOfArticles) {
-        this.countOfArticles = countOfArticles;
+    public void setNoticeNo(int noticeNo) {
+        this.noticeNo = noticeNo;
     }
 
     public void setAnchorNoticeNo(int anchorNoticeNo) {
         this.anchorNoticeNo = anchorNoticeNo;
     }
 
-    public void setNoticeNo(int noticeNo) {
-        this.noticeNo = noticeNo;
+    public void setCountOfArticles(String countOfArticles) {
+        this.countOfArticles = countOfArticles;
+    }
+
+    public void setImportantOnly(boolean importantOnly) {
+        this.importantOnly = importantOnly;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public void setDivisionNo(int divisionNo) {
+        this.divisionNo = divisionNo;
     }
 }

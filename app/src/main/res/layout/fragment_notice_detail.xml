@@ -3,134 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ScrollView
+    <com.crewcloud.apps.crewnotice.view.MyRecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="50dp"
-        android:fillViewport="true">
-
-        <LinearLayout
-            android:id="@+id/fragment_notice_detail_ln_content"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin_normal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_list_black_24dp"
-                    android:tint="@color/colorPrimary" />
-
-                <TextView
-                    android:id="@+id/fragment_notice_detail_tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin_normal"
-                    android:text="Lorem ipsum dolor sit amet consectetur"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/text_15_30" />
-            </LinearLayout>
-
-            <include layout="@layout/view_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin_normal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_login_username"
-                    android:tint="@color/colorPrimary" />
-
-                <TextView
-                    android:id="@+id/fragment_notice_detail_tv_author"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin_normal"
-                    android:text="Nguyen Ngo Giap"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/text_15_30" />
-            </LinearLayout>
-
-            <include layout="@layout/view_line" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin_normal">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-
-                    android:src="@mipmap/ic_calendar" />
-
-                <TextView
-                    android:id="@+id/fragment_notice_detail_tv_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin_big"
-                    android:text="2016-11-01 ~ 2016-11-30"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/text_15_30" />
-            </LinearLayout>
-
-            <include layout="@layout/view_line" />
+        android:layout_marginBottom="50dp" />
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/fragment_notice_detail_lv_attach"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include layout="@layout/view_line" />
-
-            <TextView
-                android:id="@+id/fragment_notice_detail_tv_des"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_big"
-                android:text="Lorem ipsum dolor sit amet consectetur"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/text_15_30" />
-
-            <include layout="@layout/view_line" />
-
-            <com.crewcloud.apps.crewnotice.view.MyRecyclerView
-                android:id="@+id/fragment_notice_detail_lv_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-
-    </ScrollView>
-
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@+id/fragment_notice_detail_ln_bottom"
         android:background="@color/gray" />
 
     <LinearLayout
+        android:id="@+id/fragment_notice_detail_ln_bottom"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/fragment_notice_detail_ln_bottom"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/margin_normal"
         android:orientation="horizontal">

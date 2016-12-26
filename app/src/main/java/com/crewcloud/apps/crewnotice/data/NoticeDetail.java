@@ -68,7 +68,7 @@ public class NoticeDetail {
     private boolean isContentImg;
 
     @SerializedName("Attachments")
-    private List<Photo> attaches;
+    private List<Attachments> attaches;
 
     @SerializedName("Comments")
     private List<Comment> commentList;
@@ -228,11 +228,11 @@ public class NoticeDetail {
         isContentImg = contentImg;
     }
 
-    public List<Photo> getAttaches() {
+    public List<Attachments> getAttaches() {
         return attaches;
     }
 
-    public void setAttaches(List<Photo> attaches) {
+    public void setAttaches(List<Attachments> attaches) {
         this.attaches = attaches;
     }
 

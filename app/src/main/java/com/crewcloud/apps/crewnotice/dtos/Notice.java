@@ -8,61 +8,139 @@ import com.google.gson.annotations.SerializedName;
 
 public class Notice {
 
-    @SerializedName("noticeNo")
-    private int id;
+    @SerializedName("NoticeNo")
+    private int noticeNo;
 
-    @SerializedName("content")
-    private String content;
+    @SerializedName("UserNo")
+    private int userNo;
 
-    @SerializedName("number_comment")
-    private String number_comment;
+    @SerializedName("UserName")
+    private String userName;
 
-    @SerializedName("time")
-    private String time;
+    @SerializedName("PositionName")
+    private String positionName;
 
-    @SerializedName("author")
-    private String author;
+    @SerializedName("DateCreated")
+    private String dateCreated;
+
+    @SerializedName("RepresentativeImageUrl")
+    private String representativeImageUrl;
+
+    @SerializedName("Title")
+    private String title;
+
+    @SerializedName("DivisionName")
+    private String divisionName;
+
+    @SerializedName("DivisionNo")
+    private int divisionNo;
+
+    @SerializedName("Important")
+    private boolean important;
+
+    @SerializedName("CountRead")
+    private int countRead;
+
+    @SerializedName("CountComment")
+    private int countComment;
+
 
     public Notice() {
     }
 
-    public int getId() {
-        return id;
+    public int getNoticeNo() {
+        return noticeNo;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNoticeNo(int noticeNo) {
+        this.noticeNo = noticeNo;
     }
 
-    public String getContent() {
-        return content;
+    public int getUserNo() {
+        return userNo;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
     }
 
-    public String getNumber_comment() {
-        return number_comment;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNumber_comment(String number_comment) {
-        this.number_comment = number_comment;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getTime() {
-        return time;
+    public String getPositionName() {
+        return positionName;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getDateCreated() {
+        return dateCreated;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getRepresentativeImageUrl() {
+        return representativeImageUrl;
+    }
+
+    public void setRepresentativeImageUrl(String representativeImageUrl) {
+        this.representativeImageUrl = representativeImageUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDivisionName() {
+        return divisionName;
+    }
+
+    public void setDivisionName(String divisionName) {
+        this.divisionName = divisionName;
+    }
+
+    public int getDivisionNo() {
+        return divisionNo;
+    }
+
+    public void setDivisionNo(int divisionNo) {
+        this.divisionNo = divisionNo;
+    }
+
+    public boolean isImportant() {
+        return important;
+    }
+
+    public void setImportant(boolean important) {
+        this.important = important;
+    }
+
+    public int getCountRead() {
+        return countRead;
+    }
+
+    public void setCountRead(int countRead) {
+        this.countRead = countRead;
+    }
+
+    public int getCountComment() {
+        return countComment;
+    }
+
+    public void setCountComment(int countComment) {
+        this.countComment = countComment;
     }
 }

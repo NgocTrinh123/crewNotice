@@ -1,11 +1,11 @@
 package com.crewcloud.apps.crewnotice.util;
 
 
+import com.crewcloud.apps.crewnotice.loginv2.Statics;
+
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -80,25 +80,25 @@ public class TimeUtils {
                 } else {
                     return false;
                 }
-            }else if(hourFromTime == hour && hour != hourToTime){
-                if (minuteFromTime <= minute){
+            } else if (hourFromTime == hour && hour != hourToTime) {
+                if (minuteFromTime <= minute) {
                     return true;
-                }else {
+                } else {
                     return false;
                 }
-            }else if(hourFromTime != hour && hour == hourToTime){
-                if ( minute<= minuteToTime){
+            } else if (hourFromTime != hour && hour == hourToTime) {
+                if (minute <= minuteToTime) {
                     return true;
-                }else {
+                } else {
                     return false;
                 }
-            }else {
+            } else {
                 return false;
             }
-        }else {
+        } else {
             if (hourFromTime < hour && hour < hourToTime) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
         }
@@ -279,7 +279,6 @@ public class TimeUtils {
     }
 
 
-
     public static int getTimezoneOffsetInMinutes() {
         TimeZone tz = TimeZone.getDefault();
         int offsetMinutes = tz.getRawOffset() / 60000;
@@ -365,6 +364,40 @@ public class TimeUtils {
     }
 
 
+    public static String displayTimeWithoutOffset(String timeString, boolean isToday) {
+        SimpleDateFormat formatter;
+        try {
+            long time;
+
+            if (timeString.contains("(")) {
+                timeString = timeString.replace("/Date(", "");
+                int plusIndex = timeString.indexOf("+");
+
+                if (plusIndex != -1) {
+                    time = Long.valueOf(timeString.substring(0, plusIndex));
+                } else {
+                    time = Long.valueOf(timeString.substring(0, timeString.indexOf(")")));
+                }
+            } else {
+                time = Long.valueOf(timeString);
+            }
+
+            if (isToday) {
+                formatter = new SimpleDateFormat(Statics.DATE_FORMAT_HH_MM_AA, Locale.getDefault());
+//                formatter.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            } else {
+                formatter = new SimpleDateFormat(Statics.DATE_FORMAT_YYYY_MM_DD, Locale.getDefault());
+//                formatter.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            }
+
+
+            return formatter.format(new Date(time));
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+
     public static long getTimeFromString(String timeString) {
         long time;
         try {
@@ -387,5 +420,54 @@ public class TimeUtils {
         int ordinalDay = cal.get(Calendar.DAY_OF_YEAR);
         int weekDay = cal.get(Calendar.DAY_OF_WEEK) - 1; // Sunday = 0
         return (ordinalDay - weekDay + 10) / 7;
+    }
+
+    //-2: today
+    //-3: Yesterday
+    //-4: this month
+    //-5: last Month
+    //-1: default
+    public static long getTimeForMail(long time) {
+        int date = -1;
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        if (cal.get(Calendar.YEAR) == getYearNote(time)) {
+            if (cal.get(Calendar.MONTH) == getMonthNote(time)) {
+                int temp = cal.get(Calendar.DAY_OF_MONTH) - getDateNote(time);
+                if (cal.get(Calendar.DAY_OF_MONTH) == getDateNote(time)) {
+                    date = -2;
+                } else if (temp == 1) {
+                    date = -3;
+                } else {
+                    date = -4;
+                }
+            } else if (cal.get(Calendar.MONTH) - 1 == getMonthNote(time)) {
+                date = -5;
+            }
+        } else if (cal.get(Calendar.YEAR) == getYearNote(time) + 1) {
+            if (cal.get(Calendar.MONTH) == 0 && getMonthNote(time) == 11) {
+                date = -5;
+            }
+        }
+        return date;
+    }
+
+
+    public static int getYearNote(long date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date);
+        return cal.get(Calendar.YEAR);
+    }
+
+    public static int getMonthNote(long date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date);
+        return cal.get(Calendar.MONTH);
+    }
+
+    public static int getDateNote(long date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(date);
+        return cal.get(Calendar.DAY_OF_MONTH);
     }
 }

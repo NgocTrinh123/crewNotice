@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="160dp">
+    android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/item_comment_civ_avatar"
@@ -11,6 +11,7 @@
         android:src="@mipmap/photo_placeholder" />
 
     <RelativeLayout
+        android:id="@+id/item_comment_rl_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/item_comment_civ_avatar"
@@ -19,16 +20,14 @@
         <TextView
             android:id="@+id/item_comment_tv_author"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nguyen Ngo Giap" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/item_comment_tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_big"
-            android:layout_toRightOf="@+id/item_comment_tv_author"
-            android:text="03:00 pm" />
+            android:layout_toRightOf="@+id/item_comment_tv_author" />
 
         <ImageView
             android:id="@+id/item_comment_iv_info"
@@ -43,9 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_comment_tv_author"
-            android:orientation="vertical"
             android:layout_toLeftOf="@+id/item_comment_iv_info"
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/arrow_up"
@@ -55,10 +53,11 @@
                 android:src="@drawable/quickaction_arrow_up" />
 
             <TextView
+                android:id="@+id/item_comment_tv_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="@drawable/bg_text_comment"
-                android:text="commentajsdiasdja\ndasldkadklasdkl"
+                android:padding="@dimen/margin_small"
                 android:textColor="@android:color/black" />
         </LinearLayout>
 
@@ -104,12 +103,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_comment_tv_reply" />
+
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/item_comment_rl_comment"
         android:background="@color/gray" />
 
 </RelativeLayout>

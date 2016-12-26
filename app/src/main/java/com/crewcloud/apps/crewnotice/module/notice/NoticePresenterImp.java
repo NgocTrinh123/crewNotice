@@ -9,6 +9,7 @@ import com.crewcloud.apps.crewnotice.base.BaseResponse;
 import com.crewcloud.apps.crewnotice.base.ResponseListener;
 import com.crewcloud.apps.crewnotice.dtos.ErrorDto;
 import com.crewcloud.apps.crewnotice.dtos.Notice;
+import com.crewcloud.apps.crewnotice.loginv2.Statics;
 import com.crewcloud.apps.crewnotice.net.APIService;
 import com.crewcloud.apps.crewnotice.net.BodyRequest;
 import com.crewcloud.apps.crewnotice.response.MenuResponse;
@@ -33,16 +34,17 @@ public class NoticePresenterImp extends BasePresenter<NoticePresenter.view> impl
     }
 
     @Override
-    public void getNotice(String search, int divisionNo) {
+    public void getNotice(String search, int divisionNo, boolean isImportant, int anchorNoticeNo) {
         if (isViewAttached()) {
             String sessionId = CrewCloudApplication.getInstance().getPreferenceUtilities().getCurrentMobileSessionId();
             String languageCode = Util.getPhoneLanguage();
             String timeZoneOffset = String.valueOf(TimeUtils.getTimezoneOffsetInMinutes());
             BodyRequest bodyRequest = new BodyRequest(timeZoneOffset, languageCode, sessionId);
             bodyRequest.setDivisionNo(divisionNo);
-            bodyRequest.setImportantOnly(false);
+            bodyRequest.setImportantOnly(isImportant);
             bodyRequest.setSearchText(search);
-            bodyRequest.setAnchorNoticeNo(1);
+            bodyRequest.setCountOfArticles(Statics.COUNT_OF_ARTICLES);
+            bodyRequest.setAnchorNoticeNo(anchorNoticeNo);
             APIService.getInstance()
                     .getListNotice(bodyRequest)
                     .subscribeOn(Schedulers.io())

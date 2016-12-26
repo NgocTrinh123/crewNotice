@@ -131,7 +131,6 @@ public class MainActivityV2 extends BaseActivity implements LeftMenuPresenter.vi
 
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("OBJECT", leftMenuAdapter.getItem(position));
-
                 MenuEvent menuEvent = new MenuEvent(BaseEvent.EventType.MENU);
                 MenuItem item = new MenuItem(Statics.MENU.NOTICE);
                 menuEvent.setMenuItem(item);
@@ -391,10 +390,10 @@ public class MainActivityV2 extends BaseActivity implements LeftMenuPresenter.vi
     @Override
     public void onGetMenuSuccess(List<LeftMenu> leftMenu) {
         LeftMenu importionLeftMenu = new LeftMenu();
-        importionLeftMenu.setName("Important");
+        importionLeftMenu.setName(getString(R.string.important));
 
         LeftMenu all = new LeftMenu();
-        all.setName("All");
+        all.setName(getString(R.string.all));
 
         leftMenu.add(0, importionLeftMenu);
         leftMenu.add(1, all);

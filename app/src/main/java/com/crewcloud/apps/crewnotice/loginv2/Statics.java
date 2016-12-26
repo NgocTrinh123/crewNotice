@@ -35,5 +35,8 @@ public class Statics {
 
     public static final int SEARCH = 1;
     public static final String ID_NOTICE = "id";
+    public static final String COUNT_OF_ARTICLES = "20";
 
+    public static final String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd hh:mm aa";
+    public static final String DATE_FORMAT_HH_MM_AA = "hh:mm aa";
 }

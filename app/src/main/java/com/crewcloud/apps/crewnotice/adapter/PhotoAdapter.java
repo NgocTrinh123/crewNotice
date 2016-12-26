@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.crewcloud.apps.crewnotice.R;
 import com.crewcloud.apps.crewnotice.base.BaseActivity;
 import com.crewcloud.apps.crewnotice.base.BaseAdapter;
-import com.crewcloud.apps.crewnotice.data.Photo;
+import com.crewcloud.apps.crewnotice.data.Attachments;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by tunglam on 12/16/16.
  */
 
-public class PhotoAdapter extends BaseAdapter<Photo, PhotoAdapter.ViewHolder> {
+public class PhotoAdapter extends BaseAdapter<Attachments, PhotoAdapter.ViewHolder> {
 
     public PhotoAdapter(BaseActivity mActivity) {
         super(mActivity);
@@ -53,9 +53,9 @@ public class PhotoAdapter extends BaseAdapter<Photo, PhotoAdapter.ViewHolder> {
         }
 
         public void bind(int position) {
-            Photo photo = getItem(position);
-            tvName.setText(photo.getName());
-            Picasso.with(getContext()).load(photo.getUrl())
+            Attachments photo = getItem(position);
+            tvName.setText(photo.getFileName());
+            Picasso.with(getContext()).load(R.mipmap.no_photo)
                     .placeholder(R.mipmap.photo_placeholder)
                     .error(R.mipmap.no_photo)
                     .into(ivImage);

@@ -43,7 +43,11 @@ public class NoticeFragment extends BaseFragment implements NoticePresenter.view
     ListNoticeAdapter adapter;
     NoticePresenterImp noticePresenterImp;
     LeftMenu leftMenu;
-    int divisionId;
+    private String textSearch = "";
+    private int divisionId;
+    private boolean isImportant = false;
+    private boolean stopLoading;
+    private int currentPage;
 
     public static BaseFragment newInstance(Bundle bundle) {
         NoticeFragment noticeFragment = new NoticeFragment();
@@ -61,7 +65,13 @@ public class NoticeFragment extends BaseFragment implements NoticePresenter.view
         if (getArguments() != null) {
             leftMenu = getArguments().getParcelable("OBJECT");
             if (leftMenu != null) {
-                divisionId = leftMenu.getDivisionNo();
+                if (leftMenu.getName().equals(getString(R.string.important))) {
+                    isImportant = true;
+                } else if (leftMenu.getName().equals(getString(R.string.all))) {
+                    divisionId = 0;
+                } else {
+                    divisionId = leftMenu.getDivisionNo();
+                }
             }
         }
 
@@ -86,27 +96,36 @@ public class NoticeFragment extends BaseFragment implements NoticePresenter.view
         rvList.setLayoutManager(linearLayoutManager);
 
         rvList.setAdapter(adapter);
+        if (adapter.getItemCount() == 0) {
+            currentPage = 0;
+            stopLoading = true;
+            noticePresenterImp.getNotice(textSearch, divisionId, isImportant, currentPage);
+        }
 
-        noticePresenterImp.getNotice("", divisionId);
 
-//        rvList.setMyRecyclerViewListener(new MyRecyclerView.MyRecyclerViewListener() {
-//            @Override
-//            public void onRefresh() {
-//
-//            }
-//
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount) {
-//
-//            }
-//        });
+        rvList.setMyRecyclerViewListener(new MyRecyclerView.MyRecyclerViewListener() {
+            @Override
+            public void onRefresh() {
+                currentPage = 0;
+                noticePresenterImp.getNotice("", divisionId, isImportant, currentPage);
+            }
+
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                currentPage = page;
+                if (!stopLoading) {
+                    noticePresenterImp.getNotice(textSearch, divisionId, isImportant, currentPage);
+                }
+
+            }
+        });
 
         adapter.setOnClickNewsListener(new ListNoticeAdapter.OnClickNewsListener() {
             @Override
             public void onItemClicked(int position) {
                 BaseEvent baseEvent = new BaseEvent(BaseEvent.EventType.NOTICE_DETAIL);
                 Bundle data = new Bundle();
-                data.putInt(Statics.ID_NOTICE, adapter.getItem(position).getId());
+                data.putInt(Statics.ID_NOTICE, adapter.getItem(position).getNoticeNo());
                 MenuEvent menuEvent = new MenuEvent();
                 menuEvent.setBundle(data);
                 baseEvent.setMenuEvent(menuEvent);
@@ -132,12 +151,14 @@ public class NoticeFragment extends BaseFragment implements NoticePresenter.view
         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                textSearch = query;
+                noticePresenterImp.getNotice(textSearch, divisionId, isImportant, currentPage);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 return false;
             }
         };
@@ -162,7 +183,13 @@ public class NoticeFragment extends BaseFragment implements NoticePresenter.view
 
     @Override
     public void onGetNoticeSuccess(List<Notice> list) {
+        if (currentPage == 0) {
+            adapter.clear();
+        }
+        stopLoading = list.size() == 0;
         adapter.addAll(list);
+        rvList.setNotShowLoadMore(stopLoading);
+        rvList.stopShowLoading();
     }
 
     @Override

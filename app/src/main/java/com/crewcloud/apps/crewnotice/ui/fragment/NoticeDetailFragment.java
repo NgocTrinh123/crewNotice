@@ -3,7 +3,6 @@ package com.crewcloud.apps.crewnotice.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.crewcloud.apps.crewnotice.R;
-import com.crewcloud.apps.crewnotice.adapter.CommentAdapter;
-import com.crewcloud.apps.crewnotice.adapter.PhotoAdapter;
+import com.crewcloud.apps.crewnotice.adapter.NoticeDetailAdapter;
 import com.crewcloud.apps.crewnotice.base.BaseFragment;
 import com.crewcloud.apps.crewnotice.data.NoticeDetail;
-import com.crewcloud.apps.crewnotice.factory.DataFactory;
 import com.crewcloud.apps.crewnotice.loginv2.Statics;
 import com.crewcloud.apps.crewnotice.module.noticedetail.NoticeDetailPresenter;
 import com.crewcloud.apps.crewnotice.module.noticedetail.NoticeDetailPresenterImp;
@@ -33,35 +29,21 @@ import butterknife.ButterKnife;
 
 public class NoticeDetailFragment extends BaseFragment implements NoticeDetailPresenter.view {
 
-    @Bind(R.id.fragment_notice_detail_lv_attach)
-    RecyclerView lvAttach;
-
-    @Bind(R.id.fragment_notice_detail_tv_author)
-    TextView tvAuthor;
-
-    @Bind(R.id.fragment_notice_detail_tv_des)
-    TextView tvDes;
-
-    @Bind(R.id.fragment_notice_detail_tv_time)
-    TextView tvTime;
-
-    @Bind(R.id.fragment_notice_detail_tv_title)
-    TextView tvTitle;
 
     @Bind(R.id.fragment_notice_detail_et_comment)
     EditText etComment;
 
-    @Bind(R.id.fragment_notice_detail_lv_comment)
-    MyRecyclerView lvComment;
-
     @Bind(R.id.fragment_notice_detail_iv_send)
     ImageView ivSend;
 
+    @Bind(R.id.recyclerView)
+    MyRecyclerView lvNotice;
+
     NoticeDetailPresenterImp noticeDetailPresenterImp;
     private int idNotice;
+    NoticeDetail noticeDetail;
 
-    PhotoAdapter photoAdapter;
-    CommentAdapter commentAdapter;
+    NoticeDetailAdapter adapter;
 
     public static BaseFragment newInstance(Bundle bundle) {
         NoticeDetailFragment fragment = new NoticeDetailFragment();
@@ -77,8 +59,7 @@ public class NoticeDetailFragment extends BaseFragment implements NoticeDetailPr
         setHasOptionsMenu(true);
         noticeDetailPresenterImp = new NoticeDetailPresenterImp(getActivity());
         noticeDetailPresenterImp.attachView(this);
-        photoAdapter = new PhotoAdapter(getBaseActivity());
-        commentAdapter = new CommentAdapter(getBaseActivity());
+
         if (getArguments() != null) {
             idNotice = getArguments().getInt(Statics.ID_NOTICE);
         }
@@ -103,32 +84,11 @@ public class NoticeDetailFragment extends BaseFragment implements NoticeDetailPr
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        lvAttach.setLayoutManager(linearLayoutManager);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        lvComment.setLayoutManager(llm);
-
-        lvComment.setAdapter(commentAdapter);
-        lvAttach.setAdapter(photoAdapter);
+        lvNotice.setLayoutManager(llm);
 
         noticeDetailPresenterImp.getNoticeDetail(idNotice);
-
-    }
-
-    private void initData(NoticeDetail notice) {
-        tvTitle.setText(notice.getTitle());
-        tvAuthor.setText(notice.getUserName());
-        tvTime.setText(notice.getStartDate());
-
-        photoAdapter.addAll(DataFactory.getPhoto());
-//        for (Comment comment : DataFactory.getComments()) {
-//            if (comment.getLstReply() != null && comment.getLstReply().size() > 0) {
-//                RecyclerView.LayoutParams layout = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200);
-//                lvComment.setLayoutParams(layout);
-//            }
-//        }
-        commentAdapter.addAll(notice.getCommentList());
     }
 
     @Override
@@ -145,7 +105,8 @@ public class NoticeDetailFragment extends BaseFragment implements NoticeDetailPr
 
     @Override
     public void onGetDetailSuccess(NoticeDetail noticeDetail) {
-        initData(noticeDetail);
+        adapter = new NoticeDetailAdapter(getBaseActivity(), noticeDetail);
+        lvNotice.setAdapter(adapter);
     }
 
     @Override

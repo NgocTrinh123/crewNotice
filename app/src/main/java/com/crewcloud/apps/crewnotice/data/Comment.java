@@ -9,20 +9,32 @@ import java.util.List;
  */
 
 public class Comment {
-    @SerializedName("id")
-    private String id;
+    @SerializedName("CommentNo")
+    private int commentNo;
 
-    @SerializedName("author")
-    private String author;
+    @SerializedName("NoticeNo")
+    private int noticeNo;
 
-    @SerializedName("time")
-    private String time;
+    @SerializedName("RegUserNo")
+    private int regUserNo;
 
-    @SerializedName("avatar")
-    private String avatar;
+    @SerializedName("UserName")
+    private String userName;
 
-    @SerializedName("comment")
-    private String comment;
+    @SerializedName("PositionName")
+    private String positionName;
+
+    @SerializedName("RegDate")
+    private String regDate;
+
+    @SerializedName("Content")
+    private String content;
+
+    @SerializedName("ModUserNo")
+    private int modUserNo;
+
+    @SerializedName("ModDate")
+    private String modDate;
 
     @SerializedName("reply")
     private List<Reply> lstReply;
@@ -30,61 +42,76 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String id, String author, String time, String avatar, String comment) {
-        this.id = id;
-        this.author = author;
-        this.time = time;
-        this.avatar = avatar;
-        this.comment = comment;
+    public int getCommentNo() {
+        return commentNo;
     }
 
-    public Comment(String id, String author, String time, String avatar, String comment, List<Reply> lstReply) {
-        this.id = id;
-        this.author = author;
-        this.time = time;
-        this.avatar = avatar;
-        this.comment = comment;
-        this.lstReply = lstReply;
+    public void setCommentNo(int commentNo) {
+        this.commentNo = commentNo;
     }
 
-    public String getId() {
-        return id;
+    public int getNoticeNo() {
+        return noticeNo;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setNoticeNo(int noticeNo) {
+        this.noticeNo = noticeNo;
     }
 
-    public String getAuthor() {
-        return author;
+    public int getRegUserNo() {
+        return regUserNo;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setRegUserNo(int regUserNo) {
+        this.regUserNo = regUserNo;
     }
 
-    public String getTime() {
-        return time;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getPositionName() {
+        return positionName;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
-    public String getComment() {
-        return comment;
+    public String getRegDate() {
+        return regDate;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setRegDate(String regDate) {
+        this.regDate = regDate;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getModUserNo() {
+        return modUserNo;
+    }
+
+    public void setModUserNo(int modUserNo) {
+        this.modUserNo = modUserNo;
+    }
+
+    public String getModDate() {
+        return modDate;
+    }
+
+    public void setModDate(String modDate) {
+        this.modDate = modDate;
     }
 
     public List<Reply> getLstReply() {

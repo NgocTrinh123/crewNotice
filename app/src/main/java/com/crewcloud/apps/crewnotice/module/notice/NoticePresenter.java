@@ -17,6 +17,6 @@ public interface NoticePresenter {
     }
 
     interface presenter {
-        void getNotice(String search, int divisionNo);
+        void getNotice(String search, int divisionNo, boolean isImportant, int anchorNoticeNo);
     }
 }

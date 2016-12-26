@@ -102,4 +102,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search">Search</string>
     <string name="check_all">Check All</string>
+    <string name="important">Important</string>
+    <string name="all">All</string>
+    <string name="today">"Today, "</string>
 </resources>
